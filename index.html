@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Белый Мир — Магазин</title>
+
+  <!-- Шрифты -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+
+  <!-- Стили (замени на свой файл styles.css) -->
+  <link rel="stylesheet" href="styles.css" />
+
+  <!-- Иконка -->
+  <link rel="icon" href="images/my_logo.png" type="image/png" />
+</head>
+<body>
+
+  <!-- ---------------- Header (frosted glass) ---------------- -->
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="logo">
+        <a href="#" class="logo-link" onclick="goHome(event)" title="Белый Мир — на главную">
+          <img src="images/my_logo.png" alt="Белый Мир" class="logo-img" />
+          <span class="snowflake-logo" aria-hidden>❄</span>
+        </a>
+      </div>
+
+      <div class="header-controls">
+        <div class="city-block">
+          <label for="city" class="visually-hidden">Город</label>
+          <select id="city" onchange="setCity()">
+            <option value="Новосибирск">Новосибирск</option>
+            <option value="Кемерово">Кемерово</option>
+            <option value="Томск">Томск</option>
+          </select>
+        </div>
+
+        <div class="balance-block">
+          <span id="balance-rub">0 ₽</span>
+          <span class="sep">|</span>
+          <span id="balance-btc">0 BTC</span>
+        </div>
+
+        <nav class="main-nav" aria-label="Главное меню">
+          <ul>
+            <li><a href="#" onclick="showPage('products');return false;">Товары</a></li>
+            <li><a href="#" onclick="showPage('cooperation');return false;">Сотрудничество</a></li>
+            <li><a href="#" onclick="showPage('about');return false;">О магазине</a></li>
+            <li id="auth-link"><a href="#" onclick="showPage('auth');return false;">Авторизация</a></li>
+            <li id="profile-link" style="display:none;"><a href="#" onclick="showPage('profile');return false;">Профиль</a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <!-- ---------------- Snowflakes layer (on all pages, CSS driven) ---------------- -->
+  <div class="snowflakes" aria-hidden="true">
+    <!-- 20 снежинок разного размера/скорости -->
+    <div class="snow" style="--i:1"></div>
+    <div class="snow" style="--i:2"></div>
+    <div class="snow" style="--i:3"></div>
+    <div class="snow" style="--i:4"></div>
+    <div class="snow" style="--i:5"></div>
+    <div class="snow" style="--i:6"></div>
+    <div class="snow" style="--i:7"></div>
+    <div class="snow" style="--i:8"></div>
+    <div class="snow" style="--i:9"></div>
+    <div class="snow" style="--i:10"></div>
+    <div class="snow" style="--i:11"></div>
+    <div class="snow" style="--i:12"></div>
+    <div class="snow" style="--i:13"></div>
+    <div class="snow" style="--i:14"></div>
+    <div class="snow" style="--i:15"></div>
+    <div class="snow" style="--i:16"></div>
+    <div class="snow" style="--i:17"></div>
+    <div class="snow" style="--i:18"></div>
+    <div class="snow" style="--i:19"></div>
+    <div class="snow" style="--i:20"></div>
+  </div>
+
+  <!-- ---------------- PAGES ---------------- -->
+  <!-- Главная: Товары -->
+  <main id="products" class="page active">
+    <section class="hero">
+      <div class="hero-inner">
+        <h1 class="site-title">Добро пожаловать в <span>Белый Мир</span></h1>
+        <p class="hero-sub">Качественные продукты и премиум-обслуживание. Выберите город и начните покупки.</p>
+      </div>
+    </section>
+
+    <section class="controls-row">
+      <div class="filter">
+        <label for="weight-filter">Фильтр по объёму</label>
+        <select id="weight-filter" onchange="applyWeightFilter()">
+          <option value="all">Все</option>
+          <option value="0.5">0.5</option>
+          <option value="1">1</option>
+          <option value="1.5">1.5</option>
+          <option value="2">2</option>
+        </select>
+      </div>
+      <div class="search-placeholder">
+        <!-- визуально похоже на поиск — если нужно, можно подключить позже -->
+        <input type="search" placeholder="Поиск по товарам (демо)" />
+      </div>
+    </section>
+
+    <section id="product-list" class="products-grid" aria-live="polite">
+      <!-- Карточки товаров будут вставляться сюда скриптом -->
+    </section>
+  </main>
+
+  <!-- Авторизация -->
+  <section id="auth" class="page">
+    <div class="auth-wrap">
+      <div class="auth-card">
+        <h3>Вход</h3>
+        <input id="login-username" placeholder="Логин" />
+        <input id="login-password" type="password" placeholder="Пароль" />
+        <button class="btn btn-primary" onclick="loginUser()">Войти</button>
+      </div>
+
+      <div class="auth-card">
+        <h3>Регистрация</h3>
+        <input id="register-username" placeholder="Логин" />
+        <input id="register-password" type="password" placeholder="Пароль" />
+        <input id="register-confirm" type="password" placeholder="Повторите пароль" />
+        <button class="btn btn-primary" onclick="registerUser()">Зарегистрироваться</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Профиль -->
+  <section id="profile" class="page">
+    <div class="profile-card">
+      <h2>Профиль</h2>
+      <img id="profile-avatar" src="images/default-avatar.png" alt="Аватар" class="avatar" />
+      <input id="avatar-input" type="file" accept="image/*" onchange="updateAvatar()" />
+      <p><strong>Имя:</strong> <span id="profile-username">—</span></p>
+      <p><strong>Баланс:</strong> <span id="profile-balance">0 ₽</span></p>
+      <p><strong>Покупок всего:</strong> <span id="profile-purchases">0</span></p>
+      <p><strong>BTC-адрес:</strong> <span class="btc-address" onclick="copyBTC()">bc1qaxcanfh53hj449n890dm2f9c5ftswk1lxt3s38</span></p>
+      <button class="btn btn-ghost" onclick="logoutUser()">Выйти</button>
+    </div>
+  </section>
+
+  <!-- Сотрудничество -->
+  <section id="cooperation" class="page">
+    <div class="panel">
+      <h2>Сотрудничество</h2>
+      <p>☑️ Залог от 3500₽. Не требуется, если вы пришли с другого магазина.</p>
+    </div>
+  </section>
+
+  <!-- О магазине -->
+  <section id="about" class="page">
+    <div class="panel">
+      <h2>О магазине</h2>
+      <p>Мы работаем в Новосибирске, Кемерово и Томске, доставляем товари в кратчайшие сроки и даём премиум-сервис.</p>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <p>© 2025 Магазин Белый Мир</p>
+    </div>
+  </footer>
+
+  <!-- Toast уведомления (скрипт управляет классом .show) -->
+  <div id="toast" class="toast" aria-live="polite"></div>
+
+  <!-- Скрипты (твоя логика — оставлена) -->
+  <script src="scripts.js"></script>
+</body>
+</html>
