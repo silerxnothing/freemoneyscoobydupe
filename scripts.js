@@ -176,7 +176,7 @@ function renderProducts(city = "Новосибирск") {
     card.innerHTML = `
       <img src="${p.img}" alt="${p.name}">
       <h4>${p.name}</h4>
-      <div class="rating">⭐ ${rating}</div>
+      <div class="rating">${rating} ⭐⭐⭐⭐⭐</div>
       <div class="price">${p.price.toLocaleString("ru-RU")} ₽</div>
       <button class="btn btn-primary">Подробнее</button>
     `;
