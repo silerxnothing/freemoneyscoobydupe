@@ -99,8 +99,17 @@ body {
   margin-bottom: 2rem;
 }
 
+.roboto-bold {
+  font-family: "Roboto", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: bold;
+  font-style: normal;
+  font-variation-settings:
+    "wdth" 100;
+}
+
 .site-title {
-  font-family: "Playfair Display", serif;
+  font-family: "Roboto", sans-serif;
   font-size: 2.4rem;
   color: #003b70;
 }
@@ -149,7 +158,10 @@ body {
   padding: 0.6rem;
   transition: all 0.25s ease;
 }
-
+.rating{
+  font-size: 1.4rem;
+  color: #000000;
+}
 .product-card:hover {
   transform: translateY(-4px);
   box-shadow: 0 6px 14px rgba(0, 0, 0, 0.1);
@@ -164,7 +176,7 @@ body {
 }
 
 .product-card h4 {
-  font-family: "Playfair Display", serif;
+  font-family: "Roboto", sans-serif;
   font-size: 1.05rem;
   color: #003b70;
   margin-bottom: 0.2rem;
