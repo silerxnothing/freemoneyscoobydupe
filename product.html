@@ -5,64 +5,80 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Белый Мир — Товар</title>
   <link rel="stylesheet" href="styles.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Inter:wght@400;600&display=swap" rel="stylesheet" />
 </head>
 <body class="product-body">
 
   <!-- Шапка -->
-  <header class="site-header glass-header">
+<header class="site-header">
     <div class="header-inner">
-      <a href="index.html" class="logo-link">
-        <img src="images/my_logo.png" alt="Белый Мир" class="logo-img" />
-        <span class="snowflake-logo">❄</span>
-      </a>
-      <div class="balance-block">
-        <span id="balance-rub">0 ₽</span>
-        <span class="sep">|</span>
-        <span id="balance-btc">0 BTC</span>
+      <div class="logo">
+        <a href="#" class="logo-link" onclick="goHome(event)" title="Белый Мир — на главную">
+          <img src="images/my_logo.png" alt="Белый Мир" class="logo-img" />
+          <span class="snowflake-logo" aria-hidden>❄</span>
+        </a>
+      </div>
+      <div class="header-controls">
+        <div class="city-block">
+          <div class="custom-select-wrapper">
+            <label for="city" class="visually-hidden">Город</label>
+            <select id="city" onchange="setCity()">
+              <option value="Новосибирск">Новосибирск</option>
+              <option value="Кемерово">Кемерово</option>
+              <option value="Томск">Томск</option>
+            </select>
+          </div>
+        </div>
+        <div class="balance-block">
+          <span id="balance-rub">0 ₽</span>
+          <span class="sep">|</span>
+          <span id="balance-btc">0 BTC</span>
+        </div>
+        <nav class="main-nav" aria-label="Главное меню">
+          <ul>
+            <li><a href="#" onclick="showPage('products');return false;">Товары</a></li>
+            <li><a href="#" onclick="showPage('cooperation');return false;">Сотрудничество</a></li>
+            <li><a href="#" onclick="showPage('about');return false;">О магазине</a></li>
+            <li id="auth-link"><a href="#" onclick="showPage('auth');return false;">Авторизация</a></li>
+            <li id="profile-link" style="display:none;"><a href="#" onclick="showPage('profile');return false;">Профиль</a></li>
+          </ul>
+        </nav>
       </div>
     </div>
   </header>
 
   <!-- Снежинки -->
   <div class="snowflakes" aria-hidden="true">
-    <div class="snow" style="--i:1"></div>
-    <div class="snow" style="--i:2"></div>
-    <div class="snow" style="--i:3"></div>
-    <div class="snow" style="--i:4"></div>
-    <div class="snow" style="--i:5"></div>
-    <div class="snow" style="--i:6"></div>
-    <div class="snow" style="--i:7"></div>
-    <div class="snow" style="--i:8"></div>
-    <div class="snow" style="--i:9"></div>
-    <div class="snow" style="--i:10"></div>
+    <div class="snow" style="--i:1"></div><div class="snow" style="--i:2"></div><div class="snow" style="--i:3"></div><div class="snow" style="--i:4"></div><div class="snow" style="--i:5"></div><div class="snow" style="--i:6"></div><div class="snow" style="--i:7"></div><div class="snow" style="--i:8"></div><div class="snow" style="--i:9"></div><div class="snow" style="--i:10"></div>
   </div>
 
   <!-- Страница товара -->
-  <main class="product-page">
-    <div class="product-detail glass-card">
-      <img id="detail-img" class="product-image" src="" alt="Товар" />
-      <div class="product-info">
-        <h2 id="detail-name" class="product-title"></h2>
-        <p id="detail-desc" class="product-desc"></p>
-        <p><strong>Вес:</strong> <span id="detail-weight"></span> кг</p>
-        <p><strong>Цена:</strong> <span id="detail-price"></span> ₽</p>
-        <button class="btn btn-primary" onclick="buySelectedProduct()">Купить</button>
+  <main class="page product-page">
+      <!-- Product Details Card -->
+      <div class="glass-card product-detail">
+          <img id="detail-img" class="product-image" src="" alt="Товар" />
+          <div class="product-info">
+              <h2 id="detail-name" class="product-title"></h2>
+              <p id="detail-desc" class="product-desc"></p>
+              <p><strong>Вес:</strong> <span id="detail-weight"></span> кг</p>
+              <!-- MODIFIED LINE -->
+              <p><strong>Цена:</strong> <span id="detail-price"></span> ₽ <span class="sep">|</span> <span id="detail-price-btc"></span> BTC</p>
+              <button class="btn btn-primary" onclick="buySelectedProduct()">Купить</button>
+          </div>
       </div>
-    </div>
 
-    <div id="reviews-section" class="reviews glass-card">
-      <h3>Отзывы покупателей</h3>
-      <div id="reviews-list" class="review-list"></div>
-      <div id="review-form" class="review-form" style="display:none;">
-        <textarea id="review-text" placeholder="Оставьте свой отзыв..."></textarea>
-        <button class="btn btn-ghost" onclick="addReview()">Отправить</button>
+      <!-- Reviews Card -->
+      <div class="glass-card reviews">
+          <h3>Отзывы покупателей</h3>
+          <div id="reviews-list" class="review-list"></div>
+          <div id="review-form" class="review-form" style="display:none;">
+              <textarea id="review-text" placeholder="Оставьте свой отзыв..."></textarea>
+              <button class="btn btn-ghost" onclick="addReview()">Отправить</button>
+          </div>
       </div>
-    </div>
   </main>
 
   <div id="toast" class="toast"></div>
-
   <script src="scripts.js"></script>
 </body>
 </html>
