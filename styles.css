@@ -71,7 +71,7 @@ body.product-body .page { display: block; } /* FIX: Make product page visible */
 
 /* === Кнопки === */
 .btn { padding: 0.6rem 1.2rem; border-radius: 10px; border: none; cursor: pointer; font-weight: 600; transition: all 0.2s; }
-.btn-primary { background: linear-gradient(90deg, #4da0ff, #2e7dbf); color: white; }
+.btn-primary { background: linear-gradient(90deg, #4da0ff, #2e7dbf); color: white; margin-left: 0.5rem }
 .btn-primary:hover { background: linear-gradient(90deg, #5ab4ff, #3f90d8); transform: translateY(-2px); }
 .btn-ghost { background: transparent; border: 2px solid #2e7dbf; color: #2e7dbf; }
 .btn-ghost:hover { background: #e8f3ff; }
@@ -179,7 +179,22 @@ body.product-body .page { display: block; } /* FIX: Make product page visible */
   border-radius: 12px;
   margin: 1rem;
 }
+.address-card {
+  text-align: center;
+  margin-bottom: 1rem; /* Center the heading and the address text */
+}
 
+.address-card h3 {
+  margin-bottom: 1rem; /* Add some space below the new heading */
+  color: #003b70;      /* Keep the heading color consistent */
+}
+
+/* You can optionally style the address text itself */
+#detail-address {
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: #2e7dbf;
+}
 .review-date {
   font-size: 0.9rem;
   color: #557288;
@@ -198,7 +213,21 @@ body.product-body .page { display: block; } /* FIX: Make product page visible */
   resize: none;
   margin-bottom: 0.6rem;
 }
+#detail-address-list {
+  display: flex;
+  flex-direction: column; /* Stack buttons vertically */
+  gap: 0.75rem; /* This creates the space between each button */
+}
 
+.address-button {
+  width: 100%; /* Make each button fill the container */
+  text-align: left; /* Align address text to the left */
+  padding: 12px 16px; /* Add generous padding */
+  white-space: normal; /* Allow long addresses to wrap to the next line */
+  line-height: 1.4; /* Improve readability for wrapped text */
+  font-size: 1.4rem;
+  justify-content: flex-start; /* For flex buttons, align content left */
+}
 /* === Responsive Design for Mobile === */
 @media (max-width: 768px) {
   .product-detail {

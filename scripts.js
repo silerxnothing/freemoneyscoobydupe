@@ -1,6 +1,6 @@
-// ========== Глобальные переменные для данных ==========
 let allProducts = [];
 let allReviews = [];
+let allPositions = []; // NEW: Variable for positions
 
 // ========== Конфигурация ==========
 let BTC_RATE = 9700000; // Default fallback value
@@ -16,25 +16,26 @@ async function initializeApp() {
         const btcData = await btcResponse.json();
         if (btcData.bitcoin && btcData.bitcoin.rub) {
           BTC_RATE = btcData.bitcoin.rub;
-          console.log(`Курс BTC обновлен: ${BTC_RATE} RUB`);
         }
       }
     } catch (e) {
       console.error("Не удалось загрузить курс BTC, используется значение по умолчанию.", e);
     }
 
-    // Загружаем продукты и отзывы одновременно
-    const [productsResponse, reviewsResponse] = await Promise.all([
+    // UPDATED: Load products, reviews, and positions simultaneously
+    const [productsResponse, reviewsResponse, positionsResponse] = await Promise.all([
       fetch('products.json'),
-      fetch('reviews.json')
+      fetch('reviews.json'),
+      fetch('positions.json') // NEW: Fetch positions
     ]);
 
-    if (!productsResponse.ok || !reviewsResponse.ok) {
+    if (!productsResponse.ok || !reviewsResponse.ok || !positionsResponse.ok) {
       throw new Error('Не удалось загрузить данные.');
     }
 
     allProducts = await productsResponse.json();
     allReviews = await reviewsResponse.json();
+    allPositions = await positionsResponse.json(); // NEW: Store positions
 
     // Запускаем остальную логику только после загрузки данных
     if (document.getElementById("product-list")) {
@@ -276,6 +277,7 @@ function setupFilterToggle() {
 }
 
 // ====== Страница товара: загрузка, покупка, отзывы ======
+// ====== Страница товара: загрузка, покупка, отзывы ======
 function loadProductPage() {
   const raw = localStorage.getItem("selectedProduct");
   if (!raw) {
@@ -289,15 +291,31 @@ function loadProductPage() {
   document.getElementById("detail-desc").textContent = product.desc;
   document.getElementById("detail-weight").textContent = product.weight;
   
-  // Display RUB and BTC prices
   const priceRub = product.price;
   const priceBtc = (priceRub / BTC_RATE).toFixed(8);
   document.getElementById("detail-price").textContent = priceRub.toLocaleString("ru-RU");
   document.getElementById("detail-price-btc").textContent = priceBtc;
 
+  // --- UPDATED LOGIC TO RENDER ADDRESSES AS BUTTONS ---
+  const addressListEl = document.getElementById("detail-address-list");
+  
+  const positionsForProduct = allPositions.filter(p => Number(p.productId) === Number(product.id));
+
+  if (positionsForProduct.length > 0) {
+    // Build an HTML string of buttons instead of a list
+    const addressButtonsHTML = positionsForProduct.map(p => 
+      `<button class="btn btn-primary address-button" onclick="buySelectedProduct()">
+        ${p.approximate_address}
+      </button>`
+    ).join('');
+    
+    addressListEl.innerHTML = addressButtonsHTML;
+  } else {
+    addressListEl.innerHTML = "<p>Готовый клад, уточняйте у оператора</p>";
+  }
 
   updateBalanceDisplay();
-  renderReviews(); // Запускаем рендер отзывов
+  renderReviews();
 }
 
 

@@ -15,7 +15,7 @@
       <div class="logo">
         <a href="#" class="logo-link" onclick="goHome(event)" title="Белый Мир — на главную">
           <img src="images/my_logo.png" alt="Белый Мир" class="logo-img" />
-          <span class="snowflake-logo" aria-hidden>❄</span>
+          <span class="logo-text">Белый Мир</span>
         </a>
       </div>
       <div class="header-controls">
@@ -52,7 +52,8 @@
     <div class="snow" style="--i:1"></div><div class="snow" style="--i:2"></div><div class="snow" style="--i:3"></div><div class="snow" style="--i:4"></div><div class="snow" style="--i:5"></div><div class="snow" style="--i:6"></div><div class="snow" style="--i:7"></div><div class="snow" style="--i:8"></div><div class="snow" style="--i:9"></div><div class="snow" style="--i:10"></div>
   </div>
 
-  <!-- Страница товара -->
+   <!-- Страница товара -->
+
   <main class="page product-page">
       <!-- Product Details Card -->
       <div class="glass-card product-detail">
@@ -60,10 +61,17 @@
           <div class="product-info">
               <h2 id="detail-name" class="product-title"></h2>
               <p id="detail-desc" class="product-desc"></p>
-              <p><strong>Вес:</strong> <span id="detail-weight"></span> кг</p>
-              <!-- MODIFIED LINE -->
+              <p><strong>Вес:</strong> <span id="detail-weight"></span> г</p>
               <p><strong>Цена:</strong> <span id="detail-price"></span> ₽ <span class="sep">|</span> <span id="detail-price-btc"></span> BTC</p>
-              <button class="btn btn-primary" onclick="buySelectedProduct()">Купить</button>
+              <!-- REMOVED the old "Купить" button from this section -->
+          </div>
+      </div>
+
+      <!-- Address Card -->
+      <div class="glass-card address-card">
+          <h3>Выберите адрес:</h3>
+          <div id="detail-address-list">
+              <p>Загрузка доступных адресов...</p>
           </div>
       </div>
 
